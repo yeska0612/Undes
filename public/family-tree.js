@@ -1,11 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
-import {
-  getAuth,
-  onAuthStateChanged,
-  getIdToken,
-} from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
 
-// 🔥 FIREBASE CONFIG (auth.js дээрхтэй ижил)
 const firebaseConfig = {
   apiKey: "AIzaSyC3Mu5W0Aol7DvtQ28mdtnD1qWt426ea9U",
   authDomain: "undes-27404.firebaseapp.com",
@@ -18,12 +13,26 @@ const firebaseConfig = {
 const fbApp = initializeApp(firebaseConfig);
 const auth = getAuth(fbApp);
 
-async function getAuthHeader() {
-  const user = auth.currentUser;
-  if (!user) return null;
-  const token = await getIdToken(user, true);
-  return "Bearer " + token;
+// ⚠️ Өөрийн Render URL
+const RENDER_BASE = "https://YOUR-RENDER-SERVICE.onrender.com";
+
+const API_BASE =
+  window.location.hostname === "localhost"
+    ? "http://localhost:3000"
+    : RENDER_BASE;
+
+function getStoredToken() {
+  return localStorage.getItem("undes_token");
 }
+
+function authHeaders(extra = {}) {
+  const token = getStoredToken();
+  return {
+    ...extra,
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+}
+
 const CARD_W = 150;
 const CARD_H = 190;
 const H_GAP = 60;
@@ -75,7 +84,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
   onAuthStateChanged(auth, async (user) => {
     if (!user) {
-      // нэвтрээгүй бол empty tree
       members = [];
       createDefaultRoot();
       setupPersonModal();
@@ -88,6 +96,7 @@ window.addEventListener("DOMContentLoaded", () => {
     await loadTreeFromJson();
   });
 });
+
 
 function createDefaultRoot() {
   const me = new FamilyMember({
@@ -103,24 +112,23 @@ function createDefaultRoot() {
 
 async function loadTreeFromJson() {
   try {
-    const authz = await getAuthHeader();
-    if (!authz) {
-      // нэвтрээгүй бол үндсэн root үүсгээд зогсоно
+    const token = getStoredToken();
+    if (!token) {
       createDefaultRoot();
       return;
     }
 
-    const res = await fetch("/api/tree/load", {
-      headers: { Authorization: authz },
+    const res = await fetch(`${API_BASE}/api/tree/load`, {
+      method: "GET",
+      headers: authHeaders(),
     });
 
-    if (!res.ok) throw new Error("Load failed: " + res.status);
+    const out = await res.json();
+    if (!res.ok || !out.ok) throw new Error(out.error || "Load failed");
 
-    const out = await res.json(); // { ok:true, data:{members:[]}}
     const data = out.data || {};
     const rawMembers = Array.isArray(data.members) ? data.members : [];
 
-    // JSON → FamilyMember объект руу хөрвүүлэх
     members = rawMembers.map((raw) => {
       const m = new FamilyMember(raw);
       m.parents = raw.parents || [];
@@ -130,20 +138,14 @@ async function loadTreeFromJson() {
       return m;
     });
 
-    // Хэрвээ JSON хоосон бол fallback
-    if (!members.length) {
-      createDefaultRoot();
-    }
+    if (!members.length) createDefaultRoot();
   } catch (err) {
-    console.error("family-tree.json ачааллахад алдаа:", err);
-    // Алдаа гарвал бас fallback
+    console.error("Tree load error:", err);
     createDefaultRoot();
   }
 
-  // nextId-гаа JSON-оос дахин тооцоолно
   nextId = members.reduce((max, m) => (m.id > max ? m.id : max), 0) + 1;
 
-  // Үлдсэн анхны setup
   setupPersonModal();
   setupThemeButton();
 
@@ -155,33 +157,36 @@ async function loadTreeFromJson() {
     renderTree();
   });
 
-  document.addEventListener("click", () => {
-    closeAllMenus();
-  });
+  document.addEventListener("click", () => closeAllMenus());
 }
+
 
 // ============== SAVE TO JSON (backend рүү) ==============
 async function saveTreeToJson() {
   try {
-    const authz = await getAuthHeader();
-    if (!authz) {
+    const token = getStoredToken();
+    if (!token) {
       console.warn("Not logged in: skip save");
       return;
     }
 
     const payload = { members };
-    await fetch("/api/tree/save", {
+
+    const res = await fetch(`${API_BASE}/api/tree/save`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: authz,
-      },
+      headers: authHeaders({ "Content-Type": "application/json" }),
       body: JSON.stringify(payload),
     });
+
+    const out = await res.json().catch(() => ({}));
+    if (!res.ok || out.ok === false) {
+      console.warn("Save failed:", out);
+    }
   } catch (e) {
     console.error("Ургийн мод хадгалах үед алдаа:", e);
   }
 }
+
 
 // ================== HELPERS ==================
 function findMember(id) {

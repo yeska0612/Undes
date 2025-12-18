@@ -1,7 +1,4 @@
-import { 
-  initializeApp 
-} from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -9,9 +6,7 @@ import {
   updateProfile,
   onAuthStateChanged,
   signOut,
-  getIdToken
 } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
-
 
 // ================== FIREBASE CONFIG ==================
 const firebaseConfig = {
@@ -26,34 +21,40 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+// ================== BACKEND BASE URL ==================
+// ⚠️ ЭНД өөрийн Render URL-ээ хий
+const RENDER_BASE = "https://YOUR-RENDER-SERVICE.onrender.com";
 
-// ================== BACKEND SYNC ==================
-async function syncSessionToBackend(user) {
-  const token = await getIdToken(user, true);
+const API_BASE =
+  window.location.hostname === "localhost"
+    ? "http://localhost:3000"
+    : RENDER_BASE;
 
-  const res = await fetch("/api/auth/me", {
-    headers: {
-      Authorization: "Bearer " + token,
-    },
-  });
-
-  const out = await res.json();
-  if (!res.ok || !out.ok) {
-    throw new Error(out.error || "Backend auth failed");
-  }
-
-  // uid-г frontend дээр хадгална
-  localStorage.setItem("firebase_uid", out.uid);
-  return out;
+// ================== HELPERS ==================
+async function getToken() {
+  const user = auth.currentUser;
+  if (!user) return null;
+  return await user.getIdToken(true);
 }
 
+async function apiFetch(path, options = {}) {
+  const token = await getToken();
+
+  const headers = {
+    ...(options.headers || {}),
+    "Content-Type": "application/json",
+  };
+
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  return fetch(`${API_BASE}${path}`, { ...options, headers });
+}
 
 // ================== HEADER BUTTONS ==================
 const welcomeText = document.getElementById("welcome-text");
 const btnMyTree = document.getElementById("btn-my-tree");
 const btnLogin = document.getElementById("btn-open-auth");
 const btnLogout = document.getElementById("btn-logout");
-
 
 // ================== AUTH MODAL ==================
 const modal = document.getElementById("auth-modal");
@@ -84,7 +85,6 @@ btnLogin?.addEventListener("click", openModal);
 closeBtn?.addEventListener("click", closeModal);
 back?.addEventListener("click", closeModal);
 
-
 // ================== TABS ==================
 const formSignin = document.getElementById("form-signin");
 const formSignup = document.getElementById("form-signup");
@@ -104,7 +104,6 @@ tabBtns.forEach((t) =>
     }
   })
 );
-
 
 // ======================= TOAST =======================
 const toastBox = document.getElementById("toast-box");
@@ -133,9 +132,8 @@ function showToast(msg) {
   }, 2000);
 }
 
-
 // ======================= SIGNUP =======================
-formSignup.addEventListener("submit", async (e) => {
+formSignup?.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const name = document.getElementById("up-name").value.trim();
@@ -146,42 +144,44 @@ formSignup.addEventListener("submit", async (e) => {
     const cred = await createUserWithEmailAndPassword(auth, email, pass);
     await updateProfile(cred.user, { displayName: name });
 
-    // signup дараа auto-login хийхгүй
+    // no auto-login
     await signOut(auth);
 
     closeModal();
     document.querySelector('[data-tab="signin"]').click();
     showToast("Амжилттай бүртгэгдлээ! Одоо нэвтэрнэ үү.");
-
   } catch (err) {
     showToast(err.message);
   }
 });
 
-
 // ======================= SIGNIN =======================
-formSignin.addEventListener("submit", async (e) => {
+formSignin?.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const email = document.getElementById("in-email").value.trim();
   const pass = document.getElementById("in-pass").value.trim();
 
   try {
-    const cred = await signInWithEmailAndPassword(auth, email, pass);
+    await signInWithEmailAndPassword(auth, email, pass);
 
-    // 🔥 BACKEND-д Firebase token баталгаажуулна
-    await syncSessionToBackend(cred.user);
+    // token хадгална (family-tree.js ашиглана)
+    const token = await getToken();
+    if (token) localStorage.setItem("undes_token", token);
+
+    // backend test (optional, гэхдээ алдаа илрүүлэхэд хэрэгтэй)
+    const res = await apiFetch("/api/auth/me", { method: "GET" });
+    const out = await res.json();
+    if (!res.ok || !out.ok) throw new Error(out.error || "Backend auth failed");
 
     closeModal();
     showToast("Тавтай морилно уу!");
-
   } catch (err) {
     showToast(err.message);
   }
 });
 
-
-// ======================= LOGOUT =======================
+// ======================= LOGOUT POPUP =======================
 const logoutModal = document.getElementById("logout-modal");
 const logoutBackdrop = document.getElementById("logout-backdrop");
 const logoutCancel = document.getElementById("logout-cancel");
@@ -212,14 +212,14 @@ logoutBackdrop?.addEventListener("click", closeLogoutPopup);
 
 logoutConfirm?.addEventListener("click", async () => {
   await signOut(auth);
-  localStorage.removeItem("firebase_uid");
+  localStorage.removeItem("undes_token");
+  localStorage.removeItem("undes_tree");
   closeLogoutPopup();
   showToast("Амжилттай гарлаа");
 });
 
-
 // ======================= AUTH STATE =======================
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   if (user) {
     const name = user.displayName || user.email.split("@")[0];
 
@@ -229,6 +229,19 @@ onAuthStateChanged(auth, (user) => {
     btnMyTree.hidden = false;
     btnLogout.hidden = false;
     btnLogin.hidden = true;
+
+    // token refresh хадгална
+    const token = await getToken();
+    if (token) localStorage.setItem("undes_token", token);
+
+    // tree-г login дээр cache хийх (optional)
+    try {
+      const r = await apiFetch("/api/tree/load", { method: "GET" });
+      const j = await r.json();
+      if (j.ok && j.data) localStorage.setItem("undes_tree", JSON.stringify(j.data));
+    } catch (e) {
+      console.warn("Tree prefetch failed:", e);
+    }
   } else {
     welcomeText.textContent = "";
     welcomeText.hidden = true;
@@ -239,11 +252,11 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-
-// ======================= FAMILY TREE ROUTING =======================
+// ======================= ROUTING =======================
 function requireLogin() {
   openModal();
 
+  // force signin tab
   formSignin.classList.remove("hidden");
   formSignup.classList.add("hidden");
 
