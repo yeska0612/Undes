@@ -1,0 +1,36 @@
+{
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "firebase": "^12.5.0",
+    "firebase-admin": "^13.6.0",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.0.2",
+    "pg": "^8.16.3"
+  },
+  "name": "undes",
+  "version": "1.0.0",
+  "description": "\"# Undes\"",
+  "main": "auth.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeska0612/Undes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/yeska0612/Undes/issues"
+  },
+  "homepage": "https://github.com/yeska0612/Undes#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}

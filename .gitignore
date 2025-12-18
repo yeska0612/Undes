@@ -1,0 +1,11 @@
+# secrets
+.env
+src/firebase-service-account.json
+firebase-service-account.json
+*.pem
+*.key
+node_modules/
+
+
+# runtime uploads (хүсвэл commit хийнэ, хүсэхгүй бол ignore)
+# uploads/

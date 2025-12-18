@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="mn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Undes</title>
+
+    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="what.css" />
+    <link rel="stylesheet" href="importance.css" />
+    <link rel="stylesheet" href="instructions.css" />
+    <link rel="stylesheet" href="payment.css" />
+    <link rel="stylesheet" href="footer.css" />
+    <link rel="stylesheet" href="auth.css" />
+  </head>
+
+  <body>
+
+    <!-- ================= HEADER ================= -->
+    <header class="site-header">
+      <div class="logo">
+        <img src="img/logo.png" alt="logo" />
+        <span>Undes</span>
+      </div>
+
+      <button
+        class="nav-toggle"
+        aria-controls="main-nav"
+        aria-expanded="false"
+        aria-label="Цэс нээх/хаах"
+      >
+        <img src="img/menu-close.svg" class="icon icon-menu" />
+        <img src="img/menu-open.svg" class="icon icon-close" />
+      </button>
+
+      <nav id="main-nav" class="nav">
+        <ul class="nav-list">
+          <li><a href="#family">Нүүр хуудас</a></li>
+          <li><a href="#what">Ургийн мод гэж юу вэ?</a></li>
+          <li><a href="#importance">Ач холбогдол</a></li>
+          <li><a href="#instructions">Заавар</a></li>
+          <li><a href="#payment">Төлбөрийн нөхцөл</a></li>
+        </ul>
+      </nav>
+
+      <div class="buttons">
+        <span id="welcome-text" hidden></span>
+        <a id="btn-my-tree" href="family-tree.html" hidden><button>Миний мод</button></a>
+        <button id="btn-open-auth">Нэвтрэх</button>
+        <button id="btn-logout" class="btn-logout" hidden>Гарах</button>
+      </div>
+    </header>
+
+
+    <!-- ================= FAMILY SECTION ================= -->
+    <section class="family" id="family">
+      <div class="copy">
+        <h1>Ургийн модоо үүсгээрэй!</h1>
+        <p>
+          Таны өв соёл, удам гарал сонирхолтой байна уу? Монгол даяарх хамтын
+          ургийн модны цахим системд үнэгүйгээр нэгдэж, удам судрынхаа
+          мэдээллийг бүртгүүлээрэй.
+        </p>
+
+        <button class="cta go-tree">Ургийн мод үүсгэх</button>
+      </div>
+
+      <div class="media" aria-label="Гэр бүлийн зураг">
+        <img src="img/family.png" alt="Гэр бүлийн зураг" />
+      </div>
+    </section>
+
+
+    <!-- ================= WHAT IS FAMILY TREE ================= -->
+    <section id="what" class="what">
+      <div class="what-media" aria-hidden="true">
+        <img src="img/family2.jpg" alt="" />
+      </div>
+
+      <div class="what-copy">
+        <h2>Ургийн мод гэж юу вэ?</h2>
+        <p>
+          Ургийн мод гэдэг нь тухайн өргөн хүрээний гэр бүлийг нэр, он сар,
+          газар болон харилцаанд үндэслэн дүрсэлсэн зураглал юм. Энэ нь хувь
+          хүмүүс хэрхэн өөр хоорондоо хэд хэдэн үеэр холбогдож байгааг
+          харуулдаг.
+        </p>
+      </div>
+    </section>
+        <!-- ================= IMPORTANCE ================= -->
+    <section id="importance" class="importance">
+      <h2>Яагаад ургийн мод ашиглах хэрэгтэй вэ?</h2>
+
+      <div class="imp-grid">
+        <article class="impo">
+          <img src="img/impo1.png" alt="individual" class="impo-icon" />
+          <h3>Хувь хүний ач холбогдол</h3>
+          <p>
+            Ургийн мод нь хүн өөрийн угсаа гарал, өвөг дээдсийн талаар
+            ойлголттой болох хамгийн үр дүнтэй хэрэгсэл. Өөрийн үнэт зүйл, зан
+            заншил, зан төлөвийн хэв шинжийг танин мэдэх сэтгэлзүйн дэмжлэг
+            болдог.
+          </p>
+        </article>
+
+        <article class="impo">
+          <img src="img/impo2.png" alt="individual" class="impo-icon" />
+          <h3>Гэр бүлийн ач холбогдол</h3>
+          <p>
+            Хамаатан садны уялдаа холбоог бататгаж, эв нэгдэл, харилцан хүндлэл,
+            хамтын ухамсрыг нэмэгдүүлнэ. Дараагийн үед үлгэр дууриал болгох
+            суурь.
+          </p>
+        </article>
+
+        <article class="impo">
+          <img src="img/impo3.png" alt="individual" class="impo-icon" />
+          <h3>Нийгмийн ач холбогдол</h3>
+          <p>
+            Хүн ам зүйн бүртгэл, угсаатны зүй, түүхийн судалгаанд найдвартай
+            өгөгдөл бүрдүүлж, бодлого боловсруулахад ашиглагдана.
+          </p>
+        </article>
+
+        <article class="impo">
+          <img src="img/impo4.png" alt="individual" class="impo-icon" />
+          <h3>Соёл, ёс заншил</h3>
+          <p>
+            Өв уламжлал, ёс суртахууны өвийг хадгалж, цусан төрөл садны ёс зүйг
+            сахиулах, үндэсний бахархлаа хойч үед дамжуулахад чухал.
+          </p>
+        </article>
+      </div>
+    </section>
+
+
+    <!-- ================= INSTRUCTIONS ================= -->
+    <section class="instructions" id="instructions">
+      <h2>Хэрхэн ургийн мод үүсгэх вэ?</h2>
+
+      <div class="ins-grid">
+        <article class="instr">
+          <img src="img/instr1.png" alt="1" class="instr-icon" />
+          <h3>Бүртгүүлэх</h3>
+          <p>
+            Ургийн мод үүсгэхийн тулд эхлээд системд бүртгүүлнэ. Нэр, имэйл
+            зэрэг үндсэн мэдээллээ оруулж, бүртгэлээ баталгаажуулснаар өөрийн
+            модоо үүсгэхэд бэлэн болно.
+          </p>
+        </article>
+
+        <article class="instr">
+          <img src="img/instr2.png" alt="2" class="instr-icon" />
+          <h3>Мэдээллээ оруулах</h3>
+          <p>
+            Модоо өөрөөсөө эхлүүлж, дараалан эцэг эх, өвөө эмээ, хамаатан
+            садныхаа мэдээллийг нэмнэ. Нэр, төрсөн огноо, төрсөн газар зэрэг
+            дэлгэрэнгүй мэдээллийг оруулах тусам систем таны холбоосуудыг илүү
+            нарийн тодорхойлно.
+          </p>
+        </article>
+
+        <article class="instr">
+          <img src="img/instr3.png" alt="3" class="instr-icon" />
+          <h3>Холболтоо өргөжүүлэх</h3>
+          <p>
+            Та мэдээллээ нэмэх бүрт систем таны ураг төрлийн хүмүүсийг хамтын
+            мэдээллийн санд болон түүхэн баримтуудаас (төрсний болон нас барсны
+            гэрчилгээ гэх мэт) хайж эхэлнэ. Санал болгосон мэдээллийг шалгаж
+            баталгаажуулснаар таны ургийн мод улам бүр баяжиж, бүрэн болно.
+          </p>
+        </article>
+
+        <article class="instr">
+          <img src="img/instr4.png" alt="4" class="instr-icon" />
+          <h3>Өөрийн модоо эхлүүлэх</h3>
+          <p>Өөрийн</p>
+          <button class="cta go-tree">Ургийн мод үүсгэх</button>
+        </article>
+      </div>
+    </section>
+
+
+    <!-- ================= PAYMENT ================= -->
+    <section class="payment" id="payment">
+      <h2>Төлбөрийн нөхцөл</h2>
+
+      <div class="pay-grid">
+        <article class="pay">
+          <h3>Үнэгүй</h3>
+
+          <div class="price">
+            <span class="currency">$</span>
+            <span class="amount">0</span>
+            <span class="per">доллар / сар</span>
+          </div>
+
+          <ul class="features">
+            <li>Ургийн мод үүсгэх</li>
+            <li>Товч мэдээлэл бүртгэх</li>
+            <li>Товч мэдээлэл бүртгэх</li>
+          </ul>
+
+          <button class="cta go-tree">Эхлэх</button>
+        </article>
+
+
+        <article class="pay highlight">
+          <h3>Plus</h3>
+
+          <div class="price">
+            <span class="currency">$</span>
+            <span class="amount">20</span>
+            <span class="per">доллар / сар</span>
+          </div>
+
+          <ul class="features">
+            <li>Зураг оруулах</li>
+            <li>Дэлгэрэнгүй мэдээлэл</li>
+            <li>Товч мэдээлэл бүртгэх</li>
+          </ul>
+
+          <button class="cta">Plus болгох</button>
+        </article>
+
+
+        <article class="pay">
+          <h3>Pro</h3>
+
+          <div class="price">
+            <span class="currency">$</span>
+            <span class="amount">30</span>
+            <span class="per">доллар / сар</span>
+          </div>
+
+          <ul class="features">
+            <li>Бичлэг оруулах</li>
+            <li>Хязгааргүй мэдээлэл</li>
+            <li>Товч мэдээлэл бүртгэх</li>
+          </ul>
+
+          <button class="cta">Pro болгох</button>
+        </article>
+
+      </div>
+    </section>
+        <!-- ================= FOOTER ================= -->
+    <footer class="site-footer" id="footer">
+      <div class="footer-grid">
+        <div class="foot-brand">
+          <div class="logo">
+            <img src="img/logo.png" alt="Undes logo" />
+            <span>Undes</span>
+          </div>
+          <p class="foot-blurb">
+            Монгол удам судрыг нэгтгэх хамтын цахим орчин. Өв соёлоо хадгалж,
+            үе удам аа холбож, ирээдүйнхэндээ үнэт түүхээ үлдээнэ.
+          </p>
+        </div>
+
+        <nav class="foot-nav" aria-label="Түргэн холбоос">
+          <h4>Холбоос</h4>
+          <ul>
+            <li><a href="#family">Нүүр</a></li>
+            <li><a href="#what">Ургийн мод гэж юу вэ?</a></li>
+            <li><a href="#importance">Ач холбогдол</a></li>
+            <li><a href="#instructions">Заавар</a></li>
+            <li><a href="#payment">Төлбөрийн нөхцөл</a></li>
+          </ul>
+        </nav>
+
+        <div class="foot-contact">
+          <h4>Холбогдох</h4>
+          <ul class="contact-list">
+            <li><a href="mailto:hello@undes.mn">hello@undes.mn</a></li>
+            <li><a href="tel:+97670000000">+976 7000-0000</a></li>
+            <li>Улаанбаатар, Монгол</li>
+          </ul>
+
+          <div class="social" aria-label="Социал">
+            <a class="social-link" href="#" aria-label="Facebook">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M13 11h3l.5-3H13V6.5c0-.9.3-1.5 1.6-1.5H17V2.2C16.4 2.1 15.3 2 14 2c-2.6 0-4 1.5-4 4.1V8H7v3h3v9h3v-9z"
+                />
+              </svg>
+            </a>
+
+            <a class="social-link" href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5
+                  m5 5a5 5 0 1 0 0 10a5 5 0 0 0 0-10 
+                  m6-1a1 1 0 1 0 0 2a1 1 0 0 0 0-2Z"
+                />
+              </svg>
+            </a>
+
+            <a class="social-link" href="#" aria-label="YouTube">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M10 15l5.2-3L10 9v6 
+                  m12-3s0-3-.4-4.4a3 3 0 0 0-2-2C18.2 5 12 5 12 5
+                  s-6.2 0-7.6.6a3 3 0 0 0-2 2C2 9 2 12 2 12
+                  s0 3 .4 4.4a3 3 0 0 0 2 2C5.8 19 12 19 12 19
+                  s6.2 0 7.6-.6a3 3 0 0 0 2-2C22 15 22 12 22 12Z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot-bottom">
+        <p class="legal">
+          © <span id="year"></span> Undes. Бүх эрх хуулиар хамгаалагдсан.
+          <a href="#">Нууцлал</a> · <a href="#">Үйлчилгээний нөхцөл</a>
+        </p>
+      </div>
+    </footer>
+
+
+    <!-- ================= AUTH MODAL ================= -->
+    <div class="auth-backdrop" id="auth-backdrop" hidden></div>
+
+    <div
+      class="auth-modal"
+      id="auth-modal"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="authTitle"
+    >
+      <button class="auth-close" id="auth-close" aria-label="Хаах">×</button>
+      <h3 id="authTitle">Нэвтрэх</h3>
+
+      <div class="auth-tabs">
+        <button class="tab-btn active" data-tab="signin">Нэвтрэх</button>
+        <button class="tab-btn" data-tab="signup">Бүртгэл үүсгэх</button>
+      </div>
+
+      <!-- SIGN IN -->
+      <form class="auth-form" id="form-signin">
+        <label>И-мэйл</label>
+        <input type="email" id="in-email" placeholder="name@example.com" required />
+
+        <label>Нууц үг</label>
+        <input type="password" id="in-pass" placeholder="••••••••" required minlength="6" />
+
+        <button class="cta full" type="submit">Нэвтрэх</button>
+      </form>
+
+      <!-- SIGN UP -->
+      <form class="auth-form hidden" id="form-signup">
+        <label>Нэр</label>
+        <input type="text" id="up-name" placeholder="Таны нэр" required />
+
+        <label>И-мэйл</label>
+        <input type="email" id="up-email" placeholder="name@example.com" required />
+
+        <label>Нууц үг</label>
+        <input
+          type="password"
+          id="up-pass"
+          placeholder="Минимум 6 тэмдэгт"
+          required
+          minlength="6"
+        />
+
+        <button class="cta full" type="submit">Бүртгэл үүсгэх</button>
+      </form>
+
+      <p class="auth-help" id="auth-msg"></p>
+    </div>
+
+
+    <!-- ================= SCRIPTS ================= -->
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+    <script src="header.js"></script>
+    <script type="module" src="auth.js"></script>
+    
+    <div class="logout-backdrop" id="logout-backdrop" hidden></div>
+    <div class="logout-modal" id="logout-modal" hidden>
+      <div class="logout-box">
+        <p>Та системээс гарах уу?</p>
+
+        <div class="logout-actions">
+          <button id="logout-cancel" class="logout-btn cancel">Буцах</button>
+          <button id="logout-confirm" class="logout-btn confirm">Гарах</button>
+        </div>
+      </div>
+    </div>
+    <div id="toast-backdrop" class="toast-backdrop" hidden></div>
+
+    <div id="toast-box" class="toast-box" hidden>
+      <p id="toast-text">Амжилттай!</p>
+    </div>
+    <!-- ================= SIGNUP SUCCESS POPUP ================= -->
+    <div class="success-backdrop" id="success-backdrop" hidden></div>
+
+    <div class="success-modal" id="success-modal" hidden>
+      <div class="success-box">
+        <p>Амжилттай бүртгэгдлээ!<br>Одоо нэвтэрнэ үү.</p>
+        <button id="success-ok" class="success-btn">OK</button>
+      </div>
+    </div>
+
+  </body>
+</html>

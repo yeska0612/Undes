@@ -1,0 +1,89 @@
+/* ——— instructions ——— */
+.instructions {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: clamp(28px, 5vw, 64px) clamp(20px, 5vw, 80px);
+}
+
+.instructions h2 {
+  margin: 0 0 22px 0;
+  font-size: clamp(22px, 4.6vw, 36px);
+  color: var(--brand);
+  letter-spacing: -0.01em;
+}
+
+.ins-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    2,
+    minmax(0, 1fr)
+  );
+  gap: clamp(14px, 2.4vw, 28px) clamp(14px, 2.4vw, 28px);
+}
+
+.instr {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: clamp(16px, 2.2vw, 22px);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
+  transition: transform 0.18s ease, box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.instr:hover {
+  transform: translateY(-2px);
+  border-color: #e0cfba;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.06);
+}
+
+.instr-icon {
+  height: 50px;
+  width: 50px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  color: var(--brand);
+  margin-bottom: 10px;
+}
+
+.instr h3 {
+  margin: 6px 0 8px 0;
+  font-size: clamp(16px, 2.2vw, 20px);
+  color: var(--brand);
+}
+
+.instr p {
+  margin: 0;
+  color: var(--txt);
+  font-size: clamp(14px, 1.8vw, 16px);
+  line-height: 1.55;
+}
+
+.instr .cta {
+  background: var(--txt);
+  border: 1px solid #ccc;
+  color: #fff;
+  border-radius: 10px;
+  padding: 12px 18px;
+  margin: 15px 0 0 0;
+  font-size: clamp(13px, 1.6vw, 16px);
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+.instr .cta:hover {
+  filter: brightness(0.96);
+  background: var(--brand);
+}
+.instr .cta:focus {
+  outline: 3px solid #cbb095;
+  outline-offset: 2px;
+}
+
+@media (max-width: 769px) {
+  .ins-grid {
+    grid-template-columns: 1fr;
+  }
+}

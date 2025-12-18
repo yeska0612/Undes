@@ -1,0 +1,101 @@
+:root {
+  --bg: #f5efe3;
+  --panel: #ffffff;
+  --text: #1f1f1f;
+  --txt: #6b5b4b;
+  --brand: #5c4033;
+  --border: #e5d7c4;
+  font-family: Arial, Helvetica, sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+}
+.family {
+  width: 100%;
+  background: var(--panel);
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  gap: clamp(16px, 3vw, 40px);
+  min-height: clamp(420px, 62vh, 680px);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  padding-left: clamp(30px, 5vw, 80px);
+}
+
+.family .copy {
+  max-width: 65ch;
+  margin-left: 0;
+  padding: clamp(20px, 3vw, 36px);
+  background: #fff;
+}
+
+.family h1 {
+  margin: 0 0 10px 0;
+  color: var(--brand);
+  font-size: clamp(28px, 6vw, 56px);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+.family p {
+  margin: 18px 0 18px 0;
+  color: var(--txt);
+  font-size: clamp(15px, 1.6vw, 18px);
+}
+.family .cta {
+  background: #fff;
+  border: 2px solid #ccc;
+  color: var(--brand);
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: clamp(13px, 1.6vw, 16px);
+  font-weight: bold;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+.family .cta:hover {
+  filter: brightness(0.96);
+}
+.family .cta:focus {
+  outline: 3px solid #cbb095;
+  outline-offset: 2px;
+}
+
+.family .media {
+  position: relative;
+  height: 100%; 
+  max-width: 100%;
+  overflow: hidden;
+}
+.family .media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50% 0 0 50% / 100% 0 0 100%;
+}
+
+@media (max-width: 769px) {
+  .family {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .family .media {
+    order: -1; 
+    height: clamp(220px, 38vh, 360px);
+  }
+  .family .media img {
+    border-radius: 0;
+    clip-path: ellipse(120% 100% at 50% 0%);
+  }
+}

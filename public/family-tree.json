@@ -1,0 +1,323 @@
+{
+  "members": [
+    {
+      "id": 1,
+      "name": "Есен",
+      "age": "20",
+      "sex": "male",
+      "level": 0,
+      "x": 1283,
+      "y": 830,
+      "parents": [
+        2,
+        3
+      ],
+      "children": [],
+      "spouseId": null,
+      "photoUrl": "img/profileson.jpg",
+      "collapseUp": false,
+      "_anchor": 941
+    },
+    {
+      "id": 2,
+      "name": "Серикбол",
+      "age": "48",
+      "sex": "male",
+      "level": -1,
+      "x": 858.5,
+      "y": 580,
+      "parents": [
+        4,
+        7
+      ],
+      "children": [
+        1,
+        8
+      ],
+      "spouseId": 3,
+      "photoUrl": "img/profileman.avif",
+      "collapseUp": false,
+      "_anchor": 770
+    },
+    {
+      "id": 3,
+      "name": "Гүлбарша",
+      "age": "48",
+      "sex": "female",
+      "level": -1,
+      "x": 1023.5,
+      "y": 580,
+      "parents": [
+        5
+      ],
+      "children": [
+        1,
+        8
+      ],
+      "spouseId": 2,
+      "photoUrl": "img/profilewoman.jpg",
+      "collapseUp": false,
+      "_anchor": 428
+    },
+    {
+      "id": 4,
+      "name": "Матен",
+      "age": "77",
+      "sex": "male",
+      "level": -2,
+      "x": 687.5,
+      "y": 330,
+      "parents": [
+        13
+      ],
+      "children": [
+        2,
+        9,
+        16
+      ],
+      "spouseId": 7,
+      "photoUrl": "img/profileman.avif",
+      "collapseUp": false,
+      "_anchor": 404
+    },
+    {
+      "id": 5,
+      "name": "Заимхан",
+      "age": "70",
+      "sex": "female",
+      "level": -2,
+      "x": 428,
+      "y": 330,
+      "parents": [],
+      "children": [
+        3
+      ],
+      "spouseId": null,
+      "photoUrl": "img/profilewoman.jpg",
+      "collapseUp": false,
+      "_anchor": 0
+    },
+    {
+      "id": 7,
+      "name": "Хаман",
+      "age": "65",
+      "sex": "female",
+      "level": -2,
+      "x": 852.5,
+      "y": 330,
+      "parents": [
+        15
+      ],
+      "children": [
+        2,
+        9,
+        16
+      ],
+      "spouseId": 4,
+      "photoUrl": "img/profilewoman.jpg",
+      "collapseUp": false,
+      "_anchor": 794
+    },
+    {
+      "id": 8,
+      "name": "Алтынжайых",
+      "age": "22",
+      "sex": "female",
+      "level": 0,
+      "x": 1625,
+      "y": 830,
+      "parents": [
+        2,
+        3
+      ],
+      "children": [],
+      "spouseId": null,
+      "photoUrl": "img/profilespouse.jpg",
+      "collapseUp": false,
+      "_anchor": 941
+    },
+    {
+      "id": 9,
+      "name": "Едил",
+      "age": "",
+      "sex": "male",
+      "level": -1,
+      "x": 174.5,
+      "y": 580,
+      "parents": [
+        4,
+        7
+      ],
+      "children": [
+        11,
+        12
+      ],
+      "spouseId": 10,
+      "photoUrl": "img/profileson.jpg",
+      "collapseUp": false,
+      "_anchor": 770
+    },
+    {
+      "id": 10,
+      "name": "Дария",
+      "age": "28",
+      "sex": "female",
+      "level": -1,
+      "x": 339.5,
+      "y": 580,
+      "parents": [],
+      "children": [
+        11,
+        12
+      ],
+      "spouseId": 9,
+      "photoUrl": "img/profilespouse.jpg",
+      "collapseUp": false,
+      "_anchor": 0
+    },
+    {
+      "id": 11,
+      "name": "Алиф",
+      "age": "2",
+      "sex": "male",
+      "level": 0,
+      "x": 257,
+      "y": 830,
+      "parents": [
+        9,
+        10
+      ],
+      "children": [],
+      "spouseId": null,
+      "photoUrl": "img/profileson.jpg",
+      "collapseUp": false,
+      "_anchor": 257
+    },
+    {
+      "id": 12,
+      "name": "Дилда",
+      "age": "",
+      "sex": "female",
+      "level": 0,
+      "x": 599,
+      "y": 830,
+      "parents": [
+        9,
+        10
+      ],
+      "children": [],
+      "spouseId": null,
+      "photoUrl": "img/profilespouse.jpg",
+      "collapseUp": false,
+      "_anchor": 257
+    },
+    {
+      "id": 13,
+      "name": "Хавдыгалым",
+      "age": "",
+      "sex": "male",
+      "level": -3,
+      "x": 404,
+      "y": 80,
+      "parents": [],
+      "children": [
+        4
+      ],
+      "spouseId": null,
+      "photoUrl": "img/profileman.avif",
+      "collapseUp": false,
+      "_anchor": 0
+    },
+    {
+      "id": 15,
+      "name": "Шакетай",
+      "age": "",
+      "sex": "male",
+      "level": -3,
+      "x": 794,
+      "y": 80,
+      "parents": [],
+      "children": [
+        7
+      ],
+      "spouseId": null,
+      "photoUrl": "img/profileman.avif",
+      "collapseUp": false,
+      "_anchor": 0
+    },
+    {
+      "id": 16,
+      "name": "Тилек",
+      "age": "46",
+      "sex": "male",
+      "level": -1,
+      "x": 516.5,
+      "y": 580,
+      "parents": [
+        4,
+        7
+      ],
+      "children": [
+        18,
+        19
+      ],
+      "spouseId": 17,
+      "photoUrl": "img/profileson.jpg",
+      "collapseUp": false,
+      "_anchor": 770
+    },
+    {
+      "id": 17,
+      "name": "Алтынай",
+      "age": "45",
+      "sex": "female",
+      "level": -1,
+      "x": 681.5,
+      "y": 580,
+      "parents": [],
+      "children": [
+        18,
+        19
+      ],
+      "spouseId": 16,
+      "photoUrl": "img/profilespouse.jpg",
+      "collapseUp": false,
+      "_anchor": 0
+    },
+    {
+      "id": 18,
+      "name": "Асем",
+      "age": "20",
+      "sex": "female",
+      "level": 0,
+      "x": 941,
+      "y": 830,
+      "parents": [
+        16,
+        17
+      ],
+      "children": [],
+      "spouseId": null,
+      "photoUrl": "img/profilespouse.jpg",
+      "collapseUp": false,
+      "_anchor": 599
+    },
+    {
+      "id": 19,
+      "name": "Ерсултан",
+      "age": "10",
+      "sex": "male",
+      "level": 0,
+      "x": 0,
+      "y": 0,
+      "parents": [
+        16,
+        17
+      ],
+      "children": [],
+      "spouseId": null,
+      "photoUrl": "img/profileson.jpg",
+      "collapseUp": false
+    }
+  ]
+}

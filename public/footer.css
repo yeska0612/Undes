@@ -1,0 +1,139 @@
+:root {
+  --bg: #f5efe3;
+  --panel: #ffffff;
+  --text: #1f1f1f;
+  --txt: #6b5b4b;
+  --brand: #5b3f2c;
+  --border: #e5d7c4;
+}
+
+/* ——— Footer ——— */
+.site-footer {
+  background: var(--panel);
+  border-top: 1px solid var(--border);
+  margin-top: 0;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1.1fr;
+  gap: clamp(20px, 3vw, 40px);
+  padding: clamp(28px, 5vw, 64px) clamp(20px, 5vw, 80px);
+}
+
+.site-footer h4 {
+  margin: 0 0 10px 0;
+  font-size: clamp(14px, 2vw, 16px);
+  color: var(--brand);
+  letter-spacing: 0.2px;
+}
+
+/* ——— Брэнд ——— */
+.foot-brand .logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.foot-brand .logo img {
+  width: 28px;
+  height: 28px;
+  mix-blend-mode: multiply;
+}
+.foot-brand .logo span {
+  font-size: 20px;
+  font-weight: 600;
+  color: #222;
+}
+.foot-blurb {
+  margin-top: 10px;
+  color: var(--txt);
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 40ch;
+}
+
+/* ——— Холбоос ——— */
+.foot-nav ul,
+.contact-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.foot-nav li + li,
+.contact-list li + li {
+  margin-top: 8px;
+}
+.foot-nav a,
+.contact-list a {
+  text-decoration: none;
+  color: var(--txt);
+  font-size: 14px;
+}
+.foot-nav a:hover,
+.contact-list a:hover {
+  color: #3a2a1b;
+}
+
+/* ——— Социал ——— */
+.social {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+.social-link {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+.social-link:hover {
+  transform: translateY(-1px);
+  border-color: #e0cfba;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+.social-link svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--brand);
+}
+
+/* ——— Доод хэсэг ——— */
+.foot-bottom {
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px clamp(20px, 5vw, 80px);
+  background: #fdf5ed;
+}
+.legal {
+  margin: 0;
+  font-size: 13px;
+  color: var(--txt);
+}
+.legal a {
+  color: var(--brand);
+  text-decoration: none;
+}
+.legal a:hover {
+  text-decoration: underline;
+}
+
+/* ——— Responsive ——— */
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 480px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}

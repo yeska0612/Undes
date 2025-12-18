@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="mn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Undes – Миний мод</title>
+
+    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="family-tree.css" />
+  </head>
+
+  <body>
+    <!-- ============== HEADER ============== -->
+    <header class="site-header">
+      <div class="logo">
+        <img src="img/logo.png" alt="logo" />
+        <span>Undes</span>
+      </div>
+
+      <button class="nav-toggle" aria-controls="main-nav" aria-expanded="false">
+        <img src="img/menu-close.svg" class="icon icon-menu" />
+        <img src="img/menu-open.svg" class="icon icon-close" />
+      </button>
+
+      <nav id="main-nav" class="nav">
+        <ul class="nav-list">
+          <li><a href="index.html#family">Нүүр хуудас</a></li>
+        </ul>
+      </nav>
+
+      <div class="buttons">
+        <span id="welcome-text" hidden></span>
+        <button id="btn-open-auth">Нэвтрэх</button>
+        <button id="btn-logout" class="btn-logout" hidden>Гарах</button>
+      </div>
+    </header>
+
+    <!-- ============== FAMILY TREE ============== -->
+    <main class="tree-page">
+      <section class="tree-layout">
+        <div id="tree-root" class="tree-root">
+          <canvas id="tree-lines"></canvas>
+          <div id="tree-nodes"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============== PERSON MODAL FOR TREE ============== -->
+    <div id="person-backdrop" class="person-backdrop" hidden></div>
+    <div id="person-modal" class="person-modal" hidden>
+      <div class="person-modal-inner">
+        <h2 id="person-modal-title">Хүн нэмэх</h2>
+
+        <form id="person-form">
+          <label>
+            Нэр
+            <input id="person-name" type="text" />
+          </label>
+
+          <label>
+            Нас
+            <input id="person-age" type="text" />
+          </label>
+
+          <label>
+            Хүйс
+            <select id="person-sex">
+              <option value="">—</option>
+              <option value="male">Эр</option>
+              <option value="female">Эм</option>
+            </select>
+          </label>
+
+          <label>
+            Зургийн зам
+            <input
+              id="person-photo"
+              type="text"
+              placeholder="img/profileson.jpg"
+            />
+          </label>
+
+          <div class="modal-actions">
+            <button type="button" id="person-cancel">Болих</button>
+            <button type="submit">Хадгалах</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ============== AUTH SYSTEM (төвийн хэсэгт орхисон) ============== -->
+    <div id="auth-backdrop" class="auth-backdrop" hidden></div>
+
+    <div id="auth-modal" class="auth-modal" hidden>
+      <button class="auth-close" id="auth-close">×</button>
+      <h3 id="authTitle">Нэвтрэх</h3>
+
+      <div class="auth-tabs">
+        <button class="tab-btn active" data-tab="signin">Нэвтрэх</button>
+        <button class="tab-btn" data-tab="signup">Бүртгэл үүсгэх</button>
+      </div>
+
+      <form class="auth-form" id="form-signin">
+        <label>И-мэйл</label>
+        <input id="in-email" type="email" required />
+
+        <label>Нууц үг</label>
+        <input id="in-pass" type="password" required minlength="6" />
+
+        <button class="cta full" type="submit">Нэвтрэх</button>
+      </form>
+
+      <form class="auth-form hidden" id="form-signup">
+        <label>Нэр</label>
+        <input id="up-name" type="text" required />
+
+        <label>И-мэйл</label>
+        <input id="up-email" type="email" required />
+
+        <label>Нууц үг</label>
+        <input id="up-pass" type="password" required minlength="6" />
+
+        <button class="cta full" type="submit">Бүртгэл үүсгэх</button>
+      </form>
+
+      <p id="auth-msg" class="auth-help"></p>
+    </div>
+
+    <!-- LOGOUT -->
+    <div id="logout-backdrop" class="logout-backdrop" hidden></div>
+    <div id="logout-modal" class="logout-modal" hidden>
+      <div class="logout-box">
+        <p>Та системээс гарах уу?</p>
+        <div class="logout-actions">
+          <button id="logout-cancel" class="logout-btn cancel">Буцах</button>
+          <button id="logout-confirm" class="logout-btn confirm">Гарах</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST -->
+    <div id="toast-backdrop" class="toast-backdrop" hidden></div>
+    <div id="toast-box" class="toast-box" hidden>
+      <p id="toast-text">Амжилттай!</p>
+    </div>
+
+    <!-- SIGNUP SUCCESS -->
+    <div id="success-backdrop" class="success-backdrop" hidden></div>
+    <div id="success-modal" class="success-modal" hidden>
+      <div class="success-box">
+        <p>Амжилттай бүртгэгдлээ!</p>
+        <button id="success-ok" class="success-btn">OK</button>
+      </div>
+    </div>
+
+    <!-- ============== SCRIPTS ============== -->
+    <script src="header.js"></script>
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="family-tree.js"></script>
+
+    <!-- <script src="family-tree.core.js"></script>
+    <script src="family-tree.storage.js"></script>
+    <script src="family-tree.ui.js"></script>
+    <script src="family-tree.engine.js"></script> -->
+
+  </body>
+</html>
