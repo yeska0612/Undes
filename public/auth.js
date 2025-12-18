@@ -1,4 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -163,10 +164,15 @@ formSignin?.addEventListener("submit", async (e) => {
   const pass = document.getElementById("in-pass").value.trim();
 
   try {
-    await signInWithEmailAndPassword(auth, email, pass);
+    const cred = await signInWithEmailAndPassword(auth, email, pass);
 
-    // token хадгална (family-tree.js ашиглана)
-    const token = await getToken();
+    // ✅ token авч localStorage-д хадгал
+    const token = await getIdToken(cred.user, true);
+    localStorage.setItem("undes_token", token);
+
+    // 🔥 BACKEND-д Firebase token баталгаажуулна
+    await syncSessionToBackend(cred.user);
+
     if (token) localStorage.setItem("undes_token", token);
 
     // backend test (optional, гэхдээ алдаа илрүүлэхэд хэрэгтэй)
@@ -212,45 +218,102 @@ logoutBackdrop?.addEventListener("click", closeLogoutPopup);
 
 logoutConfirm?.addEventListener("click", async () => {
   await signOut(auth);
-  localStorage.removeItem("undes_token");
-  localStorage.removeItem("undes_tree");
+  localStorage.removeItem("firebase_uid");
+  localStorage.removeItem("undes_token"); // ✅ нэм
   closeLogoutPopup();
   showToast("Амжилттай гарлаа");
 });
 
+
 // ======================= AUTH STATE =======================
 onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    const name = user.displayName || user.email.split("@")[0];
+  try {
+    if (user) {
+      const name = user.displayName || (user.email ? user.email.split("@")[0] : "user");
 
-    welcomeText.textContent = `Тавтай морилно уу, ${name}`;
-    welcomeText.hidden = false;
+      welcomeText.textContent = `Тавтай морилно уу, ${name}`;
+      welcomeText.hidden = false;
 
-    btnMyTree.hidden = false;
-    btnLogout.hidden = false;
-    btnLogin.hidden = true;
+      btnMyTree.hidden = false;
+      btnLogout.hidden = false;
+      btnLogin.hidden = true;
 
-    // token refresh хадгална
-    const token = await getToken();
-    if (token) localStorage.setItem("undes_token", token);
+      // ✅ token-оо заавал refresh(true) хийж хадгал
+      const token = await user.getIdToken(true);
+      localStorage.setItem("undes_token", token);
 
-    // tree-г login дээр cache хийх (optional)
-    try {
-      const r = await apiFetch("/api/tree/load", { method: "GET" });
-      const j = await r.json();
-      if (j.ok && j.data) localStorage.setItem("undes_tree", JSON.stringify(j.data));
-    } catch (e) {
-      console.warn("Tree prefetch failed:", e);
+      // ✅ (Optional) preload tree — зөвхөн амжилттай бол cache-д хийнэ
+      try {
+        const r = await apiFetch("/api/tree/load", { method: "GET" });
+        const j = await r.json().catch(() => ({}));
+        if (r.ok && j.ok && j.data) {
+          localStorage.setItem("undes_tree", JSON.stringify(j.data));
+        }
+      } catch (e) {
+        console.warn("Tree prefetch failed:", e);
+      }
+
+    } else {
+      welcomeText.textContent = "";
+      welcomeText.hidden = true;
+
+      btnMyTree.hidden = true;
+      btnLogout.hidden = true;
+      btnLogin.hidden = false;
+
+      // ✅ logout үед цэвэрлэ
+      localStorage.removeItem("undes_token");
+      localStorage.removeItem("undes_tree");
+      localStorage.removeItem("firebase_uid");
     }
-  } else {
-    welcomeText.textContent = "";
-    welcomeText.hidden = true;
-
+  } catch (e) {
+    console.error("onAuthStateChanged error:", e);
+    // хамгаалалт: ямар нэг юм эвдэрвэл UI-г login төлөвт буцаана
     btnMyTree.hidden = true;
     btnLogout.hidden = true;
     btnLogin.hidden = false;
   }
 });
+
+async function submitPersonForm() {
+  const nameInput = document.getElementById("person-name");
+  const ageInput = document.getElementById("person-age");
+  const sexSelect = document.getElementById("person-sex");
+  const photoInput = document.getElementById("person-photo");
+
+  const data = {
+    name: nameInput.value.trim(),
+    age: ageInput.value.trim(),
+    sex: sexSelect.value.trim(),
+    photoUrl: photoInput ? photoInput.value.trim() : "",
+  };
+
+  switch (modalMode) {
+    case "edit":
+      if (modalTarget) editPersonWithData(modalTarget, data);
+      break;
+    case "add-father":
+      if (modalTarget) addFatherWithData(modalTarget, data);
+      break;
+    case "add-mother":
+      if (modalTarget) addMotherWithData(modalTarget, data);
+      break;
+    case "add-spouse":
+      if (modalTarget) addSpouseWithData(modalTarget, data);
+      break;
+    case "add-child":
+      if (modalTarget) addChildWithData(modalTarget, data);
+      break;
+  }
+
+  // ✅ заавал await
+  await saveTreeToJson();
+
+  closePersonModal();
+  layoutTree();
+  renderTree();
+}
+
 
 // ======================= ROUTING =======================
 function requireLogin() {
